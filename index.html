@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vindya Madushani</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap">
+<style>
+  /* ─── TOKENS ─────────────────────────────────────────── */
+  :root {
+    --bg:           #F7F6F2;
+    --surface:      #EEECEA;
+    --ink:          #181E2B;
+    --ink-muted:    #62718A;
+    --accent:       #1A6B7A;
+    --accent-pale:  #E4F1F3;
+    --rule:         #D8DAE4;
+    --font-serif:   'Lora', Georgia, 'Times New Roman', serif;
+    --font-sans:    'Source Sans 3', system-ui, -apple-system, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:          #111820;
+      --surface:     #1A2332;
+      --ink:         #DDE1EE;
+      --ink-muted:   #8492AA;
+      --accent:      #48AFBF;
+      --accent-pale: #182C38;
+      --rule:        #252E42;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg:          #111820;
+    --surface:     #1A2332;
+    --ink:         #DDE1EE;
+    --ink-muted:   #8492AA;
+    --accent:      #48AFBF;
+    --accent-pale: #182C38;
+    --rule:        #252E42;
+  }
+
+  /* ─── RESET ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { opacity: 0.75; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+
+  /* ─── LAYOUT ─────────────────────────────────────────── */
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 0 20px; }
+  }
+
+  /* ─── HEADER ─────────────────────────────────────────── */
+  header {
+    padding: 80px 0 56px;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+
+  .header-name-block { flex: 1; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.6rem, 5.5vw, 3.9rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  h1 .given { font-style: italic; }
+
+  .header-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    padding-top: 8px;
+  }
+
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    color: var(--ink-muted);
+  }
+
+  .contact-line svg {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .header-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    margin-bottom: 28px;
+  }
+
+  .header-tagline {
+    font-size: 16.5px;
+    line-height: 1.68;
+    color: var(--ink-muted);
+    max-width: 660px;
+  }
+
+  @media (max-width: 620px) {
+    .header-top { flex-direction: column; }
+    .header-contact { align-items: flex-start; }
+  }
+
+  /* ─── STICKY NAV ─────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+  }
+
+  .nav-inner {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  nav a {
+    display: block;
+    padding: 13px 0;
+    margin-right: 28px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    opacity: 1;
+  }
+
+  /* ─── SECTIONS ───────────────────────────────────────── */
+  section {
+    padding: 72px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ─── PROFILE ────────────────────────────────────────── */
+  #profile p {
+    font-size: 17px;
+    line-height: 1.72;
+    color: var(--ink);
+    max-width: 700px;
+  }
+
+  /* ─── EXPERIENCE ─────────────────────────────────────── */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 188px 1fr;
+    gap: 28px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {
+    padding-top: 4px;
+  }
+
+  .exp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-pale);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  .exp-badge .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .exp-period {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 5px;
+  }
+
+  .exp-place {
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  .exp-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 4px;
+    text-wrap: balance;
+  }
+
+  .exp-org {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+
+  .exp-body ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .exp-body li {
+    font-size: 14.5px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .exp-body li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 620px) {
+    .exp-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────────── */
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 188px 1fr;
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .edu-item:last-child { border-bottom: none; }
+
+  .edu-year {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+  }
+
+  .edu-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 4px;
+    text-wrap: balance;
+  }
+
+  .edu-inst {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .edu-detail {
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 620px) {
+    .edu-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+
+  /* ─── RESEARCH ───────────────────────────────────────── */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pub-card {
+    padding: 24px 28px;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .pub-year {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .pub-title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .pub-desc {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 36px 40px;
+  }
+
+  .skill-cluster h4 {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 14px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .tag {
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--accent-pale);
+    padding: 4px 10px;
+    border-radius: 3px;
+    line-height: 1.4;
+  }
+
+  /* ─── LANGUAGES ──────────────────────────────────────── */
+  .lang-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .lang-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 18px 24px;
+    min-width: 130px;
+    text-align: center;
+  }
+
+  .lang-name {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+
+  .lang-level {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 48px 0;
+    text-align: center;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-bottom: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.15s;
+  }
+
+  .footer-note {
+    font-size: 12.5px;
+    color: var(--ink-muted);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────── -->
+<header>
+  <div class="wrap">
+    <div class="header-top">
+      <div class="header-name-block">
+        <p class="eyebrow">Educator &amp; Researcher</p>
+        <h1><span class="given">Vindya</span> Madushani</h1>
+      </div>
+      <div class="header-contact">
+        <div class="contact-line">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Hamilton, New Zealand
+        </div>
+        <div class="contact-line">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.1 19.79 19.79 0 0 1 1.6 3.5 2 2 0 0 1 3.57 1.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.02-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+          0226 858 087
+        </div>
+        <div class="contact-line">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:vindyamadhushani@gmail.com">vindyamadhushani@gmail.com</a>
+        </div>
+        <div class="contact-line">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <a href="https://www.linkedin.com/in/vindya-madushani/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="contact-line">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <a href="https://github.com/vindyamadushani" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="header-rule"></div>
+    <p class="header-tagline">Dedicated educator with over eight years of experience in physics and science teaching — bringing scientific rigour, inclusive practice, and genuine care for student success to every classroom.</p>
+  </div>
+</header>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav aria-label="Page sections">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="#profile">Profile</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#research">Research</a>
+      <a href="#skills">Skills</a>
+      <a href="#languages">Languages</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── PROFILE ───────────────────────────────────────────── -->
+<section id="profile">
+  <div class="wrap">
+    <p class="section-label">Profile</p>
+    <p>Dedicated and patient educator with over eight years of experience as a physics and technology teacher, including extensive experience supporting students one-on-one and in small groups across a wide range of ages and abilities. Skilled at adapting lessons and resources to individual learning needs, building students' confidence, and fostering inclusive classrooms that respect diverse cultural backgrounds and support students' emotional wellbeing. Holds a Postgraduate Diploma in Education and a New Zealand Master of Professional Practice in Education and Leadership, with strong communication, record-keeping, and digital skills, and a genuine commitment to helping every young person succeed.</p>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────── -->
+<section id="experience">
+  <div class="wrap">
+    <p class="section-label">Work Experience</p>
+    <div class="exp-list">
+
+      <!-- Current: House of Science -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-badge"><span class="dot"></span>Current</div>
+          <div class="exp-period">Feb 2026 – Present</div>
+          <div class="exp-place">Hamilton, New Zealand</div>
+        </div>
+        <div class="exp-body">
+          <h3>Volunteer Organising Assistant</h3>
+          <div class="exp-org">House of Science</div>
+          <ul>
+            <li>Prepared, checked, and organised science laboratory equipment and experiment materials prior to distribution to schools.</li>
+            <li>Ensured all instruments and resources were cleaned, labelled, and safely packed according to required standards.</li>
+            <li>Conducted quality checks on laboratory materials to ensure functionality, safety, and completeness.</li>
+            <li>Followed health and safety procedures during handling, cleaning, and storage of laboratory resources.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Shop Assistant -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Mar 2025 – Aug 2025</div>
+          <div class="exp-place">Wellington, New Zealand</div>
+        </div>
+        <div class="exp-body">
+          <h3>Shop Assistant</h3>
+          <div class="exp-org">Karori Coin City</div>
+          <ul>
+            <li>Provided accurate and attentive customer support, demonstrating strong attention to detail and clear communication skills.</li>
+            <li>Handled daily transactions with high levels of accuracy, ensuring careful record-keeping and error-free processing.</li>
+            <li>Performed end-of-day reconciliation of cash and card transactions, showing strong numerical accuracy and responsibility.</li>
+            <li>Adapted quickly to changing tasks in a fast-paced environment, demonstrating flexibility and problem-solving skills.</li>
+            <li>Worked effectively as part of a team to ensure smooth daily operations and high service standards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Teacher -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Dec 2016 – Feb 2025</div>
+          <div class="exp-place">Galle, Sri Lanka</div>
+        </div>
+        <div class="exp-body">
+          <h3>Government School Teacher</h3>
+          <div class="exp-org">Department of Education, Sri Lanka</div>
+          <ul>
+            <li>Taught Physics and Science for Technology (combining chemistry, physics, biology, mathematics, and IT) to senior secondary students (grades 12–13).</li>
+            <li>Delivered Science and Information Technology lessons for junior students (Grade 9), including practical-based learning.</li>
+            <li>Mentored 10+ junior students struggling with literacy by developing customised lesson plans, improving reading comprehension and classroom participation.</li>
+            <li>Provided personalised, one-on-one support to help students understand complex concepts through clear explanations and hands-on activities.</li>
+            <li>Fostered an inclusive learning environment by respecting students' diverse cultural backgrounds and experiences.</li>
+            <li>Facilitated parent–teacher conferences, strengthening parental involvement and improving student performance.</li>
+            <li>Created and administered assessments to monitor student progress and adjusted instruction accordingly.</li>
+            <li>Inspired and motivated students to pursue academic excellence, supporting achievements at national level.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Assistant Chemist -->
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-period">Sep 2015 – Nov 2016</div>
+          <div class="exp-place">Colombo, Sri Lanka</div>
+        </div>
+        <div class="exp-body">
+          <h3>Assistant Chemist</h3>
+          <div class="exp-org">Willpower Group (Pvt) Ltd</div>
+          <ul>
+            <li>Conducted water quality analysis including testing for pH, turbidity, hardness, and other key parameters, while maintaining quality control and laboratory safety standards.</li>
+            <li>Prepared chemical solutions and reagents; calibrated laboratory instruments; maintained laboratory chemicals, equipment, and inventory.</li>
+            <li>Prepared and reviewed water quality reports, developed treatment recommendations, and communicated results to clients in a timely manner.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ──────────────────────────────────────────── -->
+<section id="education">
+  <div class="wrap">
+    <p class="section-label">Education</p>
+    <div class="edu-list">
+
+      <div class="edu-item">
+        <div class="edu-year">2025 – 2026</div>
+        <div class="edu-body">
+          <h3>Master of Professional Practice in Education and Leadership</h3>
+          <div class="edu-inst">Whitireia New Zealand &amp; Wellington Institute of Technology</div>
+          <div class="edu-detail">Praxis Research: <em>Pathways and challenges for overseas-trained ESL teachers entering the New Zealand education system.</em></div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2025</div>
+        <div class="edu-body">
+          <h3>Postgraduate Diploma in Education</h3>
+          <div class="edu-inst">PSB University Cambodia</div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2011 – 2015</div>
+        <div class="edu-body">
+          <h3>Bachelor of Science (Second Class Honours)</h3>
+          <div class="edu-inst">Rajarata University of Sri Lanka</div>
+          <div class="edu-detail">Major: Physics, Chemistry and Computer Science</div>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-year">2010</div>
+        <div class="edu-body">
+          <h3>Advanced Level Examination</h3>
+          <div class="edu-inst">Sri Lanka</div>
+          <div class="edu-detail">Biology, Chemistry and Physics</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── RESEARCH ───────────────────────────────────────────── -->
+<section id="research">
+  <div class="wrap">
+    <p class="section-label">Research &amp; Publications</p>
+    <div class="pub-list">
+
+      <div class="pub-card">
+        <div class="pub-year">Master's Praxis Project · 2026</div>
+        <div class="pub-title">Pathways and challenges for overseas-trained ESL teachers entering the New Zealand education system.</div>
+        <div class="pub-desc">Investigates the systemic and personal barriers faced by internationally trained ESL teachers seeking to integrate into the New Zealand schooling system, with a focus on professional identity and institutional pathways.</div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-year">Published Research · 2015</div>
+        <div class="pub-title">Geochemical Assessment of Nachchaduwa Lake, Sri Lanka</div>
+        <div class="pub-desc">Water quality parameter analysis using AAS (Atomic Absorption Spectroscopy), spectrophotometry, and XRF techniques. Focused on geochemical indicators relevant to public health and environmental management.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ─────────────────────────────────────────────── -->
+<section id="skills">
+  <div class="wrap">
+    <p class="section-label">Skills</p>
+    <div class="skills-grid">
+
+      <div class="skill-cluster">
+        <h4>Teaching &amp; Pedagogy</h4>
+        <div class="tag-list">
+          <span class="tag">One-on-one student support</span>
+          <span class="tag">Lesson adaptation</span>
+          <span class="tag">Inclusive education</span>
+          <span class="tag">Behaviour management</span>
+          <span class="tag">Classroom management</span>
+          <span class="tag">Student mentoring</span>
+          <span class="tag">Assessment design</span>
+          <span class="tag">Exam invigilation</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster">
+        <h4>Research &amp; Academia</h4>
+        <div class="tag-list">
+          <span class="tag">Research design</span>
+          <span class="tag">Literature review</span>
+          <span class="tag">Data analysis</span>
+          <span class="tag">Evidence-based practice</span>
+          <span class="tag">Ethical protocols</span>
+          <span class="tag">Critical evaluation</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster">
+        <h4>Technology &amp; Digital</h4>
+        <div class="tag-list">
+          <span class="tag">Microsoft Office</span>
+          <span class="tag">Python</span>
+          <span class="tag">C++</span>
+          <span class="tag">HTML</span>
+          <span class="tag">Data management</span>
+          <span class="tag">Digital communication</span>
+        </div>
+      </div>
+
+      <div class="skill-cluster">
+        <h4>Professional</h4>
+        <div class="tag-list">
+          <span class="tag">Communication</span>
+          <span class="tag">Team collaboration</span>
+          <span class="tag">Professional leadership</span>
+          <span class="tag">Change management</span>
+          <span class="tag">Cultural competency</span>
+          <span class="tag">Time management</span>
+          <span class="tag">Attention to detail</span>
+          <span class="tag">Customer service</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── LANGUAGES ──────────────────────────────────────────── -->
+<section id="languages">
+  <div class="wrap">
+    <p class="section-label">Languages</p>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-name">English</div>
+        <div class="lang-level">Fluent</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Sinhala</div>
+        <div class="lang-level">Native</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Tamil</div>
+        <div class="lang-level">Basic</div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-name">Te Reo Māori</div>
+        <div class="lang-level">Basic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="mailto:vindyamadhushani@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        vindyamadhushani@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/vindya-madushani/" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/vindyamadushani" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+    </div>
+    <p class="footer-note">New Zealand Work Visa · 3 years &nbsp;·&nbsp; Referees available on request</p>
+  </div>
+</footer>
+
+</body>
+</html>
