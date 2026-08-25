@@ -88,7 +88,22 @@
     margin-bottom: 32px;
   }
 
-  .header-name-block { flex: 1; }
+  .header-name-block {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  .header-photo {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--surface);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
+    flex-shrink: 0;
+  }
 
   .eyebrow {
     font-size: 11px;
@@ -149,6 +164,8 @@
   @media (max-width: 620px) {
     .header-top { flex-direction: column; }
     .header-contact { align-items: flex-start; }
+    .header-name-block { gap: 18px; }
+    .header-photo { width: 88px; height: 88px; }
   }
 
   /* ─── STICKY NAV ─────────────────────────────────────── */
@@ -498,6 +515,50 @@
     color: var(--ink-muted);
   }
 
+  /* ─── GALLERY ────────────────────────────────────────── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .gallery-item {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .gallery-item img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    background: var(--accent-pale);
+  }
+
+  .gallery-caption {
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .gallery-caption strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
   /* ─── FOOTER ─────────────────────────────────────────── */
   footer {
     border-top: 1px solid var(--rule);
@@ -538,8 +599,11 @@
   <div class="wrap">
     <div class="header-top">
       <div class="header-name-block">
-        <p class="eyebrow">Educator &amp; Researcher</p>
-        <h1><span class="given">Vindya</span> Madushani</h1>
+        <img class="header-photo" src="images/vindya.jpg" alt="Vindya Madushani">
+        <div>
+          <p class="eyebrow">Educator &amp; Researcher</p>
+          <h1><span class="given">Vindya</span> Madushani</h1>
+        </div>
       </div>
       <div class="header-contact">
         <div class="contact-line">
@@ -579,6 +643,7 @@
       <a href="#research">Research</a>
       <a href="#skills">Skills</a>
       <a href="#languages">Languages</a>
+      <a href="#gallery">Gallery</a>
     </div>
   </div>
 </nav>
@@ -587,7 +652,11 @@
 <section id="profile">
   <div class="wrap">
     <p class="section-label">Profile</p>
-    <p>Dedicated and patient educator with over eight years of experience as a physics and technology teacher, including extensive experience supporting students one-on-one and in small groups across a wide range of ages and abilities. Skilled at adapting lessons and resources to individual learning needs, building students' confidence, and fostering inclusive classrooms that respect diverse cultural backgrounds and support students' emotional wellbeing. Holds a Postgraduate Diploma in Education and a New Zealand Master of Professional Practice in Education and Leadership, with strong communication, record-keeping, and digital skills, and a genuine commitment to helping every young person succeed.</p>
+    <p>Experienced science professional with over eight years spanning physics, chemistry, and biology, combining extensive
+laboratory supervision with hands-on practical work and classroom experience teaching physics and technology. Also brings
+over two years' experience as an assistant chemist in a water treatment company, with strong skills in chemical analysis, water
+quality testing, and laboratory procedures. Skilled in scientific data handling, quality assurance, and safe laboratory practices,
+with published research in water quality and a strong commitment to accuracy and teamwork in laboratory environments.</p>
   </div>
 </section>
 
@@ -828,6 +897,48 @@
         <div class="lang-name">Te Reo Māori</div>
         <div class="lang-level">Basic</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="wrap">
+    <p class="section-label">Gallery</p>
+    <div class="gallery-grid">
+
+      <figure class="gallery-item">
+        <img src="images/work-1.jpg" alt="Classroom teaching">
+        <figcaption class="gallery-caption">
+          <strong>In the classroom</strong>
+          Teaching physics to senior secondary students.
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="images/work-2.jpg" alt="Science practical activity">
+        <figcaption class="gallery-caption">
+          <strong>Hands-on science</strong>
+          Guiding students through a practical experiment.
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="images/work-3.jpg" alt="Laboratory work">
+        <figcaption class="gallery-caption">
+          <strong>Laboratory work</strong>
+          Preparing equipment with House of Science.
+        </figcaption>
+      </figure>
+
+      <figure class="gallery-item">
+        <img src="images/work-4.jpg" alt="Student mentoring session">
+        <figcaption class="gallery-caption">
+          <strong>Mentoring</strong>
+          One-on-one support with students.
+        </figcaption>
+      </figure>
+
     </div>
   </div>
 </section>
